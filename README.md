@@ -1,5 +1,4 @@
 # AWS WEBINAR SERIES
-This repository
 
 ## 1 - ) Presentation Links for Webinar
 
