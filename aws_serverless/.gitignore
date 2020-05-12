@@ -342,4 +342,6 @@ ASALocalRun/
 .vscode
 webinars.code-workspace
 
+/publish_lambda/*
+
 # End of https://www.gitignore.io/api/csharp
