@@ -1,0 +1,1004 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "AwsServerlessStack": {
+        "id": "AwsServerlessStack",
+        "path": "AwsServerlessStack",
+        "children": {
+          "demoS3": {
+            "id": "demoS3",
+            "path": "AwsServerlessStack/demoS3",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoS3/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "serverless-inventory-app-s3-bucket"
+                  }
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "AwsServerlessStack/demoS3/Notifications",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoS3/Notifications/Resource"
+                  }
+                }
+              }
+            }
+          },
+          "demoSNS": {
+            "id": "demoSNS",
+            "path": "AwsServerlessStack/demoSNS",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoSNS/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SNS::Topic",
+                  "aws:cdk:cloudformation:props": {
+                    "displayName": "Out of Stock Topic"
+                  }
+                }
+              },
+              "serkanbingol@outlook.com": {
+                "id": "serkanbingol@outlook.com",
+                "path": "AwsServerlessStack/demoSNS/serkanbingol@outlook.com",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoSNS/serkanbingol@outlook.com/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
+                      "aws:cdk:cloudformation:props": {
+                        "protocol": "email",
+                        "topicArn": {
+                          "Ref": "demoSNS5FC17744"
+                        },
+                        "endpoint": "serkanbingol@outlook.com"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "demoDynamoDB": {
+            "id": "demoDynamoDB",
+            "path": "AwsServerlessStack/demoDynamoDB",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoDynamoDB/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "streamSpecification": {
+                      "streamViewType": "NEW_AND_OLD_IMAGES"
+                    },
+                    "tableName": "serverless-inventory-app-dynamodb-table"
+                  }
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "AwsServerlessStack/demoDynamoDB/ScalingRole"
+              }
+            }
+          },
+          "demoFuncDynamoDB": {
+            "id": "demoFuncDynamoDB",
+            "path": "AwsServerlessStack/demoFuncDynamoDB",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "AwsServerlessStack/demoFuncDynamoDB/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoFuncDynamoDB/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "AwsServerlessStack/demoFuncDynamoDB/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "AwsServerlessStack/demoFuncDynamoDB/Code/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "AwsServerlessStack/demoFuncDynamoDB/Code/AssetBucket"
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoFuncDynamoDB/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3Bucket30DB1F6F"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "handler": "func_DynamoDB::func_DynamoDB.Function::FunctionHandler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "demoFuncDynamoDBServiceRole4AF66148",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "dotnetcore3.1",
+                    "functionName": "serverless-inventory-app-func-dynamodb"
+                  }
+                }
+              },
+              "AllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3": {
+                "id": "AllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3",
+                "path": "AwsServerlessStack/demoFuncDynamoDB/AllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "demoFuncDynamoDBE89A0542",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "s3.amazonaws.com",
+                    "sourceAccount": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "sourceArn": {
+                      "Fn::GetAtt": [
+                        "demoS3A195AEAA",
+                        "Arn"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "AwsServerlessStack/AssetParameters",
+            "children": {
+              "b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7": {
+                "id": "b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7",
+                "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/ArtifactHash"
+                  }
+                }
+              },
+              "9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad": {
+                "id": "9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad",
+                "path": "AwsServerlessStack/AssetParameters/9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "AwsServerlessStack/AssetParameters/9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "AwsServerlessStack/AssetParameters/9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "AwsServerlessStack/AssetParameters/9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5ad/ArtifactHash"
+                  }
+                }
+              },
+              "8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7": {
+                "id": "8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7",
+                "path": "AwsServerlessStack/AssetParameters/8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "AwsServerlessStack/AssetParameters/8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "AwsServerlessStack/AssetParameters/8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "AwsServerlessStack/AssetParameters/8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7/ArtifactHash"
+                  }
+                }
+              }
+            }
+          },
+          "demoFuncSNS": {
+            "id": "demoFuncSNS",
+            "path": "AwsServerlessStack/demoFuncSNS",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "AwsServerlessStack/demoFuncSNS/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoFuncSNS/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "AwsServerlessStack/demoFuncSNS/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AwsServerlessStack/demoFuncSNS/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "dynamodb:ListStreams",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "demoDynamoDB7092A819",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/stream/*"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:DescribeStream",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "demoDynamoDB7092A819",
+                                      "StreamArn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "demoFuncSNSServiceRoleDefaultPolicyAE4D7FDF",
+                            "roles": [
+                              {
+                                "Ref": "demoFuncSNSServiceRole89B32B8F"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "AwsServerlessStack/demoFuncSNS/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "AwsServerlessStack/demoFuncSNS/Code/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "AwsServerlessStack/demoFuncSNS/Code/AssetBucket"
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoFuncSNS/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5adS3Bucket53523296"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5adS3VersionKeyF6E7227E"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5adS3VersionKeyF6E7227E"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "handler": "func_SNS::func_SNS.Function::FunctionHandler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "demoFuncSNSServiceRole89B32B8F",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "dotnetcore3.1",
+                    "functionName": "serverless-inventory-app-func-sns"
+                  }
+                }
+              },
+              "DynamoDBEventSource:AwsServerlessStackdemoDynamoDB5BC3D066": {
+                "id": "DynamoDBEventSource:AwsServerlessStackdemoDynamoDB5BC3D066",
+                "path": "AwsServerlessStack/demoFuncSNS/DynamoDBEventSource:AwsServerlessStackdemoDynamoDB5BC3D066",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoFuncSNS/DynamoDBEventSource:AwsServerlessStackdemoDynamoDB5BC3D066/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::EventSourceMapping",
+                      "aws:cdk:cloudformation:props": {
+                        "eventSourceArn": {
+                          "Fn::GetAtt": [
+                            "demoDynamoDB7092A819",
+                            "StreamArn"
+                          ]
+                        },
+                        "functionName": {
+                          "Ref": "demoFuncSNSACD50742"
+                        },
+                        "batchSize": 100,
+                        "startingPosition": "TRIM_HORIZON"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "demoFuncGetItems": {
+            "id": "demoFuncGetItems",
+            "path": "AwsServerlessStack/demoFuncGetItems",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "AwsServerlessStack/demoFuncGetItems/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoFuncGetItems/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "AwsServerlessStack/demoFuncGetItems/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "AwsServerlessStack/demoFuncGetItems/Code/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "AwsServerlessStack/demoFuncGetItems/Code/AssetBucket"
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoFuncGetItems/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7S3BucketF5F0636F"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7S3VersionKey3FE0EA99"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters8af5232069c0b767a0cf7abfb2ed805b51b0487e34dac4ce1512b0b5e938fcf7S3VersionKey3FE0EA99"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "handler": "func_GetItems::func_GetItems.Function::FunctionHandler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "demoFuncGetItemsServiceRole621542E0",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "dotnetcore3.1",
+                    "functionName": "serverless-inventory-app-func-getitems"
+                  }
+                }
+              }
+            }
+          },
+          "demoAPIGateway": {
+            "id": "demoAPIGateway",
+            "path": "AwsServerlessStack/demoAPIGateway",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/demoAPIGateway/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "serverless-inventory-app-api-inventory"
+                  }
+                }
+              },
+              "Deployment": {
+                "id": "Deployment",
+                "path": "AwsServerlessStack/demoAPIGateway/Deployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoAPIGateway/Deployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "demoAPIGateway75123205"
+                        },
+                        "description": "Automatically created by the RestApi construct"
+                      }
+                    }
+                  }
+                }
+              },
+              "DeploymentStage.prod": {
+                "id": "DeploymentStage.prod",
+                "path": "AwsServerlessStack/demoAPIGateway/DeploymentStage.prod",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoAPIGateway/DeploymentStage.prod/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "demoAPIGateway75123205"
+                        },
+                        "deploymentId": {
+                          "Ref": "demoAPIGatewayDeploymentEC913EA1273d42dd4d0b4ba1fb3f1b823243c22b"
+                        },
+                        "stageName": "prod"
+                      }
+                    }
+                  }
+                }
+              },
+              "Endpoint": {
+                "id": "Endpoint",
+                "path": "AwsServerlessStack/demoAPIGateway/Endpoint"
+              },
+              "CloudWatchRole": {
+                "id": "CloudWatchRole",
+                "path": "AwsServerlessStack/demoAPIGateway/CloudWatchRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoAPIGateway/CloudWatchRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "apigateway.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "Account": {
+                "id": "Account",
+                "path": "AwsServerlessStack/demoAPIGateway/Account",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Account",
+                  "aws:cdk:cloudformation:props": {
+                    "cloudWatchRoleArn": {
+                      "Fn::GetAtt": [
+                        "demoAPIGatewayCloudWatchRoleE9E2034A",
+                        "Arn"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "AwsServerlessStack/demoAPIGateway/Default",
+                "children": {
+                  "api": {
+                    "id": "api",
+                    "path": "AwsServerlessStack/demoAPIGateway/Default/api",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AwsServerlessStack/demoAPIGateway/Default/api/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "demoAPIGateway75123205",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "api",
+                            "restApiId": {
+                              "Ref": "demoAPIGateway75123205"
+                            }
+                          }
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "AwsServerlessStack/demoAPIGateway/Default/api/GET",
+                        "children": {
+                          "ApiPermission.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api": {
+                            "id": "ApiPermission.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api",
+                            "path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/ApiPermission.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "demoFuncGetItems6B9C0274",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "demoAPIGateway75123205"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "demoAPIGatewayDeploymentStageprod80D6F36D"
+                                      },
+                                      "/GET/api"
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "ApiPermission.Test.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api": {
+                            "id": "ApiPermission.Test.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api",
+                            "path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/ApiPermission.Test.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "demoFuncGetItems6B9C0274",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "demoAPIGateway75123205"
+                                      },
+                                      "/test-invoke-stage/GET/api"
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "GET",
+                                "resourceId": {
+                                  "Ref": "demoAPIGatewayapi8B5D726F"
+                                },
+                                "restApiId": {
+                                  "Ref": "demoAPIGateway75123205"
+                                },
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "demoFuncGetItems6B9C0274",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "BucketNotificationsHandler050a0587b7544547bf325f094a3db834": {
+            "id": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:PutBucketNotification",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36",
+                            "roles": [
+                              {
+                                "Ref": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

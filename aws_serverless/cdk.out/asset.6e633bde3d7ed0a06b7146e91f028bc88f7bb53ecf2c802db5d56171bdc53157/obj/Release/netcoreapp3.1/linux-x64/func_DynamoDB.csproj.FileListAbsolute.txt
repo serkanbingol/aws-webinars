@@ -1,0 +1,12 @@
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/bin/Release/netcoreapp3.1/linux-x64/func_DynamoDB.deps.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/bin/Release/netcoreapp3.1/linux-x64/func_DynamoDB.runtimeconfig.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/bin/Release/netcoreapp3.1/linux-x64/func_DynamoDB.runtimeconfig.dev.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/bin/Release/netcoreapp3.1/linux-x64/func_DynamoDB.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/bin/Release/netcoreapp3.1/linux-x64/func_DynamoDB.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.csprojAssemblyReference.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.csproj.CoreCompileInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.AssemblyInfoInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.AssemblyInfo.cs
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_DynamoDB/obj/Release/netcoreapp3.1/linux-x64/func_DynamoDB.genruntimeconfig.cache
