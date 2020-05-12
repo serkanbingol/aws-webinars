@@ -341,7 +341,7 @@ ASALocalRun/
 # VsCode
 .vscode
 
-/publish_lambda/*
+publish_lambda/*
 
 
 # End of https://www.gitignore.io/api/csharp
