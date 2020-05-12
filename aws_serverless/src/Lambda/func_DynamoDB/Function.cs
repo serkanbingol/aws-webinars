@@ -23,6 +23,7 @@ namespace func_DynamoDB {
         public string FunctionHandler (S3Event evnt, ILambdaContext context) {
             var s3Event = evnt.Records[0].S3;
             context.Logger.LogLine ($"Event Received by Lambda Function from {s3Event.Bucket.Name}");
+            
             // var reader = new StreamReader (File.OpenRead (s3Event.Object.Key));           
             // while (!reader.EndOfStream) {
             //     var line = reader.ReadLine ();

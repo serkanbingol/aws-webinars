@@ -41,16 +41,16 @@ namespace AwsServerless {
             var func_DynamoDB = new Function (this, "demoFuncDynamoDB", new FunctionProps {
                 Runtime = Runtime.DOTNET_CORE_3_1,
                     FunctionName = "serverless-inventory-app-func-dynamodb",
-                    Code = Code.FromAsset ("src/Lambda/func_DynamoDB"),
-                    Handler = "Function.FunctionHandler"
+                    Code = Code.FromAsset ("publish_lambda/func_DynamoDB"),
+                    Handler = "func_DynamoDB::func_DynamoDB.Function::FunctionHandler"
 
             });
             // Create Lambda Function for SNS
             var func_SNS = new Function (this, "demoFuncSNS", new FunctionProps {
                 Runtime = Runtime.DOTNET_CORE_3_1,
                     FunctionName = "serverless-inventory-app-func-sns",
-                    Code = Code.FromAsset ("src/Lambda/func_SNS"),
-                    Handler = "Function.FunctionHandler"
+                    Code = Code.FromAsset ("publish_lambda/func_SNS"),
+                    Handler = "func_SNS::func_SNS.Function::FunctionHandler"
 
             });
 
@@ -58,8 +58,8 @@ namespace AwsServerless {
             var func_GetItems = new Function (this, "demoFuncGetItems", new FunctionProps {
                 Runtime = Runtime.DOTNET_CORE_3_1,
                     FunctionName = "serverless-inventory-app-func-getitems",
-                    Code = Code.FromAsset ("src/Lambda/func_GetItems"),
-                    Handler = "Function.FunctionHandler"
+                    Code = Code.FromAsset ("publish_lambda/func_GetItems"),
+                    Handler = "func_GetItems::func_GetItems.Function::FunctionHandler"
 
             });
 
@@ -68,14 +68,14 @@ namespace AwsServerless {
                 Handler = func_GetItems,
                     RestApiName = "serverless-inventory-app-api-inventory",
                     Proxy = false,
-   
+
             });
             var items = apiGateway.Root.AddResource ("api");
             items.AddMethod ("GET");
 
             // Create Lambda Event for Upload Image S3
             func_DynamoDB.AddEventSource (new S3EventSource (s3Bucket, new S3EventSourceProps {
-                Events = new [] { EventType.OBJECT_CREATED}
+                Events = new [] { EventType.OBJECT_CREATED }
             }));
 
             // Create Lambda Event for Insert DynamoDB
