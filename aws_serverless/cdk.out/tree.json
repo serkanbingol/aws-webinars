@@ -35,6 +35,48 @@
                     "path": "AwsServerlessStack/demoS3/Notifications/Resource"
                   }
                 }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "AwsServerlessStack/demoS3/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AwsServerlessStack/demoS3/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "demoS3A195AEAA"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Principal": "*",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "demoS3A195AEAA",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -177,7 +219,7 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": {
-                        "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3Bucket30DB1F6F"
+                        "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3BucketF5F65094"
                       },
                       "s3Key": {
                         "Fn::Join": [
@@ -190,7 +232,7 @@
                                   "Fn::Split": [
                                     "||",
                                     {
-                                      "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                                      "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3VersionKey03698F69"
                                     }
                                   ]
                                 }
@@ -203,7 +245,7 @@
                                   "Fn::Split": [
                                     "||",
                                     {
-                                      "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                                      "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3VersionKey03698F69"
                                     }
                                   ]
                                 }
@@ -221,7 +263,8 @@
                       ]
                     },
                     "runtime": "dotnetcore3.1",
-                    "functionName": "serverless-inventory-app-func-dynamodb"
+                    "functionName": "serverless-inventory-app-func-dynamodb",
+                    "timeout": 180
                   }
                 }
               },
@@ -257,21 +300,21 @@
             "id": "AssetParameters",
             "path": "AwsServerlessStack/AssetParameters",
             "children": {
-              "b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7": {
-                "id": "b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7",
-                "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7",
+              "80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df": {
+                "id": "80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df",
+                "path": "AwsServerlessStack/AssetParameters/80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df",
                 "children": {
                   "S3Bucket": {
                     "id": "S3Bucket",
-                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/S3Bucket"
+                    "path": "AwsServerlessStack/AssetParameters/80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df/S3Bucket"
                   },
                   "S3VersionKey": {
                     "id": "S3VersionKey",
-                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/S3VersionKey"
+                    "path": "AwsServerlessStack/AssetParameters/80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df/S3VersionKey"
                   },
                   "ArtifactHash": {
                     "id": "ArtifactHash",
-                    "path": "AwsServerlessStack/AssetParameters/b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7/ArtifactHash"
+                    "path": "AwsServerlessStack/AssetParameters/80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df/ArtifactHash"
                   }
                 }
               },

@@ -46,6 +46,41 @@
         "aws:cdk:path": "AwsServerlessStack/demoS3/Notifications/Resource"
       }
     },
+    "demoS3PolicyC82C0457": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "demoS3A195AEAA"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "demoS3A195AEAA",
+                        "Arn"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoS3/Policy/Resource"
+      }
+    },
     "demoSNS5FC17744": {
       "Type": "AWS::SNS::Topic",
       "Properties": {
@@ -134,7 +169,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3Bucket30DB1F6F"
+            "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3BucketF5F65094"
           },
           "S3Key": {
             "Fn::Join": [
@@ -147,7 +182,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                          "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3VersionKey03698F69"
                         }
                       ]
                     }
@@ -160,7 +195,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B"
+                          "Ref": "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3VersionKey03698F69"
                         }
                       ]
                     }
@@ -178,14 +213,15 @@
           ]
         },
         "Runtime": "dotnetcore3.1",
-        "FunctionName": "serverless-inventory-app-func-dynamodb"
+        "FunctionName": "serverless-inventory-app-func-dynamodb",
+        "Timeout": 180
       },
       "DependsOn": [
         "demoFuncDynamoDBServiceRole4AF66148"
       ],
       "Metadata": {
         "aws:cdk:path": "AwsServerlessStack/demoFuncDynamoDB/Resource",
-        "aws:asset:path": "asset.b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7",
+        "aws:asset:path": "asset.80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df",
         "aws:asset:property": "Code"
       }
     },
@@ -794,17 +830,17 @@
     }
   },
   "Parameters": {
-    "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3Bucket30DB1F6F": {
+    "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3BucketF5F65094": {
       "Type": "String",
-      "Description": "S3 bucket for asset \"b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7\""
+      "Description": "S3 bucket for asset \"80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df\""
     },
-    "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7S3VersionKeyB6B15E4B": {
+    "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfS3VersionKey03698F69": {
       "Type": "String",
-      "Description": "S3 key for asset version \"b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7\""
+      "Description": "S3 key for asset version \"80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df\""
     },
-    "AssetParametersb5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7ArtifactHash4B506DA6": {
+    "AssetParameters80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578dfArtifactHash0E8D0504": {
       "Type": "String",
-      "Description": "Artifact hash for asset \"b5dd3a22bfe31557b3b6132bc992120182a553fa66e444f1bfea7da066f0b6c7\""
+      "Description": "Artifact hash for asset \"80f1f32e51f685ad32812ba1298816d94ed1915e9b4fffd2753ffe348b0578df\""
     },
     "AssetParameters9c33ba97a64c91e12202ae93276428af0157979b6a8cfe84f304842f1bb5e5adS3Bucket53523296": {
       "Type": "String",

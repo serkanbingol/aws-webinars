@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Diagnostics.Tracing;
 using System.Reflection.Metadata;
 using System.Security.AccessControl;
@@ -16,8 +17,10 @@ namespace AwsServerless {
             // Create A S3 Bucket
             var s3Bucket = new Bucket (this, "demoS3", new BucketProps {
                 BucketName = "serverless-inventory-app-s3-bucket",
-                    RemovalPolicy = RemovalPolicy.DESTROY
+                    RemovalPolicy = RemovalPolicy.DESTROY,
+                    PublicReadAccess=true,
             });
+         
             // Create A SNS
             var snsTopic = new Topic (this, "demoSNS", new TopicProps {
                 DisplayName = "Out of Stock Topic",
@@ -42,7 +45,8 @@ namespace AwsServerless {
                 Runtime = Runtime.DOTNET_CORE_3_1,
                     FunctionName = "serverless-inventory-app-func-dynamodb",
                     Code = Code.FromAsset ("publish_lambda/func_DynamoDB"),
-                    Handler = "func_DynamoDB::func_DynamoDB.Function::FunctionHandler"
+                    Handler = "func_DynamoDB::func_DynamoDB.Function::FunctionHandler",
+                    Timeout = Amazon.CDK.Duration.Minutes(3)
 
             });
             // Create Lambda Function for SNS
