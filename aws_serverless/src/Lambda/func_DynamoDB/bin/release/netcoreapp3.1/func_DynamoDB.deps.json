@@ -12,7 +12,8 @@
           "AWSSDK.S3": "3.5.0-beta",
           "Amazon.Lambda.Core": "1.1.0",
           "Amazon.Lambda.S3Events": "1.1.0",
-          "Amazon.Lambda.Serialization.SystemTextJson": "1.0.0"
+          "Amazon.Lambda.Serialization.SystemTextJson": "1.0.0",
+          "CsvHelper": "15.0.5"
         },
         "runtime": {
           "func_DynamoDB.dll": {}
@@ -77,7 +78,19 @@
             "fileVersion": "3.5.0.0"
           }
         }
-      }
+      },
+      "CsvHelper/15.0.5": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/CsvHelper.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.5.0"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {}
     }
   },
   "libraries": {
@@ -127,6 +140,20 @@
       "sha512": "sha512-D8YSmwhaRxQ2w38Z1NPtWU3AsLhyTZrQo+CxAKGH8VaSjd6Fbn3ip2uRt50o+gaJxQ+SOdZeebh91VqcHEgLqg==",
       "path": "awssdk.s3/3.5.0-beta",
       "hashPath": "awssdk.s3.3.5.0-beta.nupkg.sha512"
+    },
+    "CsvHelper/15.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HPoE5nASoFXqoXKSi5yEBam7TzDrtC8WESA4xq53JtPKV8Mm+IKRuN+FJyMoJg1Whv/NG4JiCUs9yUcaSY/ziQ==",
+      "path": "csvhelper/15.0.5",
+      "hashPath": "csvhelper.15.0.5.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "path": "microsoft.csharp/4.5.0",
+      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
     }
   }
 }

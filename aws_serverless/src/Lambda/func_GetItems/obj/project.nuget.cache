@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3B9egdYLGl490MjdPwx9zukjEySv6TmtyuIZL6dU4m1ZnTQr/tYxVWD1vn98u3qn/Sacfo+Z5XdkT+fOeUzm/A==",
+  "dgSpecHash": "rjwW2H5RgrMViMvyuFKB6C0zKxiAieoFn11QeTfuFgRMbgnqj+JdrjmzFYczI+iZ5KiKvbtVLsLZbIW/T2BmBg==",
   "success": true,
   "projectFilePath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/func_GetItems.csproj",
   "expectedPackageFiles": [
+    "/home/srknbngl/.nuget/packages/amazon.lambda.apigatewayevents/2.1.0/amazon.lambda.apigatewayevents.2.1.0.nupkg.sha512",
     "/home/srknbngl/.nuget/packages/amazon.lambda.core/1.1.0/amazon.lambda.core.1.1.0.nupkg.sha512",
-    "/home/srknbngl/.nuget/packages/amazon.lambda.serialization.systemtextjson/1.0.0/amazon.lambda.serialization.systemtextjson.1.0.0.nupkg.sha512"
+    "/home/srknbngl/.nuget/packages/amazon.lambda.serialization.systemtextjson/1.0.0/amazon.lambda.serialization.systemtextjson.1.0.0.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/awssdk.core/3.5.0-beta/awssdk.core.3.5.0-beta.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/awssdk.dynamodbv2/3.5.0-beta/awssdk.dynamodbv2.3.5.0-beta.nupkg.sha512"
   ],
   "logs": []
 }
