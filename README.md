@@ -33,5 +33,5 @@
 * [VS Code](https://code.visualstudio.com/download)
 * [AWS Toolkit for Visual Studio Code](https://aws.amazon.com/visualstudiocode/)
 * [AWS Account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
-* 
+  
 
