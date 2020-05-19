@@ -13,7 +13,9 @@
 
 * [AWS SDK for .NET Version 3 API](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 * [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli)
+* [AWS Lambda .NET](https://github.com/aws/aws-lambda-dotnet)
 * [Nuget for AWSSDK](https://www.nuget.org/packages?q=AWSSDK)
+* [GitHub for AWSSDK](https://github.com/aws/aws-sdk-net)
 * [AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
 * [CDK .NET Reference](https://docs.aws.amazon.com/cdk/api/latest/dotnet/api/index.html)
 * [Nuget for AWSCDK](https://www.nuget.org/packages?q=CDK)
@@ -24,10 +26,12 @@
 
 ### Webinar 1 - Building .NET Core 3.1 Serverless Application in AWS 
 * [PRESENTATION : Building .NET Core 3.1 Serverless Application in AWS ](https://speakerdeck.com/serkanbingol/building-net-core-3-dot-1-serverless-application-in-aws)
+* [VIDEO -Live Coding : Building .NET Core 3.1 Serverless Application in AWS ](https://www.youtube.com/watch?v=cTRqe4sPj2Y&t=24s)
 * [Asp.Net Core 3.1](https://dotnet.microsoft.com/download) 
 * [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS CDK Latest](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 * [VS Code](https://code.visualstudio.com/download)
 * [AWS Toolkit for Visual Studio Code](https://aws.amazon.com/visualstudiocode/)
 * [AWS Account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+* 
 
