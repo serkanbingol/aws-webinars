@@ -26,7 +26,7 @@
 
 ### Webinar 1 - Building .NET Core 3.1 Serverless Application in AWS 
 * [PRESENTATION : Building .NET Core 3.1 Serverless Application in AWS ](https://speakerdeck.com/serkanbingol/building-net-core-3-dot-1-serverless-application-in-aws)
-* [MEDIUM ARTICLE & VIDEO -Live Coding : Building .NET Core 3.1 Serverless Application in AWS ]()
+* [MEDIUM ARTICLE & VIDEO - Live Coding : Building .NET Core 3.1 Serverless Application in AWS ]()
 * [Asp.Net Core 3.1](https://dotnet.microsoft.com/download) 
 * [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [AWS CDK Latest](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
