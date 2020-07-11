@@ -33,5 +33,16 @@
 * [VS Code](https://code.visualstudio.com/download)
 * [AWS Toolkit for Visual Studio Code](https://aws.amazon.com/visualstudiocode/)
 * [AWS Account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+
+### Webinar 2 - Building .NET Core 3.1 Serverless Application in AWS 
+* [PRESENTATION : Programlama dili ile bulut altyapisi olusturma : aws-cdk ](https://speakerdeck.com/serkanbingol/programlama-dili-ile-bulut-altyapisi-olusturma-aws-cdk)
+* [MEDIUM ARTICLE & VIDEO - Live Coding : Building .NET Core 3.1 Serverless Application in AWS ]()
+* [Asp.Net Core 3.1](https://dotnet.microsoft.com/download) 
+* [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+* [AWS CDK Latest](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
+* [VS Code](https://code.visualstudio.com/download)
+* [AWS Toolkit for Visual Studio Code](https://aws.amazon.com/visualstudiocode/)
+* [AWS Account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+  
   
 

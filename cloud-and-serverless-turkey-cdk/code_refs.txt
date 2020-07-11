@@ -1,0 +1,6 @@
+    <PackageReference Include="Amazon.CDK" Version="1.51.0" />
+    <PackageReference Include="Amazon.CDK.AWS.DynamoDB" Version="1.51.0" />
+    <PackageReference Include="Amazon.CDK.AWS.Lambda" Version="1.51.0" />
+    <PackageReference Include="Amazon.CDK.AWS.Lambda.EventSources" Version="1.51.0" />
+    <PackageReference Include="Amazon.CDK.AWS.S3" Version="1.51.0" />
+    <PackageReference Include="Amazon.CDK.AWS.SNS" Version="1.51.0" />

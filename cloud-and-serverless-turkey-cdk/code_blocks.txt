@@ -1,0 +1,72 @@
+            
+
+            // Create IAM Admin Role
+            var iamRole = new Role (this, "Role", new RoleProps {
+                RoleName = "LambdaAdminRole",
+                    AssumedBy = new ServicePrincipal ("lambda.amazonaws.com"),
+                    ManagedPolicies = new [] { ManagedPolicy.FromManagedPolicyArn (this,"RolePolicy","arn:aws:iam::aws:policy/AdministratorAccess") }
+
+            });
+
+
+            // Create A S3 Bucket
+            var s3Bucket = new Bucket (this, "demoS3", new BucketProps {
+                BucketName = "serverless-inventory-app-s3-bucket",
+                    RemovalPolicy = RemovalPolicy.DESTROY,
+                    PublicReadAccess = true,
+            });
+
+
+            // Create A DynamoDB
+            var dynamoDBTable = new Table (this, "demoDynamoDB", new TableProps {
+                TableName = "serverless-inventory-app-dynamodb-table",
+                    PartitionKey = new Attribute { Name = "Store", Type = AttributeType.STRING },
+                    SortKey = new Attribute { Name = "Item", Type = AttributeType.STRING },
+                    BillingMode = BillingMode.PAY_PER_REQUEST,
+                    Stream = StreamViewType.NEW_AND_OLD_IMAGES,
+                    RemovalPolicy = RemovalPolicy.DESTROY
+            });
+
+
+            // Create Lambda Function for DynamoDB
+            var func_DynamoDB = new Function (this, "demoFuncDynamoDB", new FunctionProps {
+                Runtime = Runtime.DOTNET_CORE_3_1,
+                    FunctionName = "serverless-inventory-app-func-dynamodb",
+                    Code = Code.FromAsset ("publish_lambda/func_DynamoDB"),
+                    Handler = "func_DynamoDB::func_DynamoDB.Function::FunctionHandler",
+                    Timeout = Amazon.CDK.Duration.Minutes (3),
+                    Role = iamRole,
+                   //Role = Role.FromRoleArn (this, "fullAccessLambda_DynamoDB", "arn:aws:iam::138340313734:role/Lambda_AdminRole", new FromRoleArnOptions { })
+            });
+
+            // Create Lambda Function for SNS
+            var func_SNS = new Function (this, "demoFuncSNS", new FunctionProps {
+                Runtime = Runtime.DOTNET_CORE_3_1,
+                    FunctionName = "serverless-inventory-app-func-sns",
+                    Code = Code.FromAsset ("publish_lambda/func_SNS"),
+                    Handler = "func_SNS::func_SNS.Function::FunctionHandler",
+                    Timeout = Amazon.CDK.Duration.Minutes (3),
+                    Role = iamRole,
+                    //Role = Role.FromRoleArn (this, "fullAccessLambda_SNS", "arn:aws:iam::138340313734:role/Lambda_AdminRole", new FromRoleArnOptions { })
+
+            });
+       
+            // Create Lambda Event for Upload Image S3
+            func_DynamoDB.AddEventSource (new S3EventSource (s3Bucket, new S3EventSourceProps {
+                Events = new [] { EventType.OBJECT_CREATED }
+            }));
+
+            // Create Lambda Event for Insert DynamoDB
+            func_SNS.AddEventSource (new DynamoEventSource (dynamoDBTable, new DynamoEventSourceProps {
+                StartingPosition = StartingPosition.LATEST,
+            }));
+
+            // Create A SNS
+            var snsTopic = new Topic (this, "demoSNS", new TopicProps {
+                TopicName = "NoStock",
+                    DisplayName = "Out of Stock Topic",
+
+            });
+            snsTopic.AddSubscription (new EmailSubscription ("srknbngl.workshop@gmail.com", new EmailSubscriptionProps {
+
+            }));
