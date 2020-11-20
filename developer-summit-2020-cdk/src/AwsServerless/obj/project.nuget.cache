@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v/xYbysq/PzQwTi2oEU15ZayvHHJ5FbG5PZcA90NybQ9gVHvzDGI+v50chlh+no+41p+Sgclblcp+c2UJGsiQA==",
+  "dgSpecHash": "rMBAlsnx1u4AB/7mCw9RIQVNqPKpSwbNuuUK5VQ3u6K+otSP3WfBs/QmqvyIb652zhGGDwcMYTJGQ9x42k1RqA==",
   "success": true,
-  "projectFilePath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/AwsServerless.csproj",
+  "projectFilePath": "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/AwsServerless.csproj",
   "expectedPackageFiles": [
     "/home/srknbngl/.nuget/packages/amazon.cdk/1.38.0/amazon.cdk.1.38.0.nupkg.sha512",
     "/home/srknbngl/.nuget/packages/amazon.cdk.assets/1.38.0/amazon.cdk.assets.1.38.0.nupkg.sha512",

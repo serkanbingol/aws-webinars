@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/AwsServerless.csproj": {}
+    "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/AwsServerless.csproj": {}
   },
   "projects": {
-    "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/AwsServerless.csproj": {
+    "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/AwsServerless.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/AwsServerless.csproj",
+        "projectUniqueName": "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/AwsServerless.csproj",
         "projectName": "AwsServerless",
-        "projectPath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/AwsServerless.csproj",
+        "projectPath": "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/AwsServerless.csproj",
         "packagesPath": "/home/srknbngl/.nuget/packages/",
-        "outputPath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/AwsServerless/obj/",
+        "outputPath": "/home/srknbngl/001_repos/aws-webinars/developer-summit-2020-cdk/src/AwsServerless/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/srknbngl/.nuget/NuGet/NuGet.Config"
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
         }
       }
     }

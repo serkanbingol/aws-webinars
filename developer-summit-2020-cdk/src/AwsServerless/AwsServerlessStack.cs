@@ -22,7 +22,7 @@ namespace AwsServerless {
 
             // Create A S3 Bucket
             var s3Bucket = new Bucket (this, "demoS3", new BucketProps {
-                BucketName = "serverless-inventory-app-s3-bucket",
+                BucketName = "des-inv-app-s3-bckt",
                     RemovalPolicy = RemovalPolicy.DESTROY,
                     PublicReadAccess = true,
 
@@ -101,7 +101,7 @@ namespace AwsServerless {
                     DisplayName = "Out of Stock Topic",
 
             });
-            snsTopic.AddSubscription (new EmailSubscription ("serkanbingol@outlook.com", new EmailSubscriptionProps {
+            snsTopic.AddSubscription (new EmailSubscription ("srknbngl.workshop@gmail.com", new EmailSubscriptionProps {
 
             }));
 
