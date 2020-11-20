@@ -1,0 +1,833 @@
+{
+  "Resources": {
+    "Role1ABCC5F0": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AdministratorAccess"
+        ],
+        "RoleName": "LambdaAdminRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/Role/Resource"
+      }
+    },
+    "RoleDefaultPolicy5FFB7DAB": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "dynamodb:ListStreams",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "demoDynamoDB7092A819",
+                        "Arn"
+                      ]
+                    },
+                    "/stream/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "demoDynamoDB7092A819",
+                  "StreamArn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "RoleDefaultPolicy5FFB7DAB",
+        "Roles": [
+          {
+            "Ref": "Role1ABCC5F0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/Role/DefaultPolicy/Resource"
+      }
+    },
+    "demoS3A195AEAA": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "serverless-inventory-app-s3-bucket"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoS3/Resource"
+      }
+    },
+    "demoS3Notifications84D70408": {
+      "Type": "Custom::S3BucketNotifications",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691",
+            "Arn"
+          ]
+        },
+        "BucketName": {
+          "Ref": "demoS3A195AEAA"
+        },
+        "NotificationConfiguration": {
+          "LambdaFunctionConfigurations": [
+            {
+              "Events": [
+                "s3:ObjectCreated:*"
+              ],
+              "LambdaFunctionArn": {
+                "Fn::GetAtt": [
+                  "demoFuncDynamoDBE89A0542",
+                  "Arn"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "demoFuncDynamoDBAllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3C978BF7E"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoS3/Notifications/Resource"
+      }
+    },
+    "demoS3PolicyC82C0457": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "demoS3A195AEAA"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "demoS3A195AEAA",
+                        "Arn"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoS3/Policy/Resource"
+      }
+    },
+    "demoDynamoDB7092A819": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "Store",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "Item",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "Store",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "Item",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        },
+        "TableName": "serverless-inventory-app-dynamodb-table"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoDynamoDB/Resource"
+      }
+    },
+    "demoFuncDynamoDBE89A0542": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837S3Bucket72923133"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837S3VersionKeyF51AD988"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837S3VersionKeyF51AD988"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "func_DynamoDB::func_DynamoDB.Function::FunctionHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "Role1ABCC5F0",
+            "Arn"
+          ]
+        },
+        "Runtime": "dotnetcore3.1",
+        "FunctionName": "serverless-inventory-app-func-dynamodb",
+        "Timeout": 180
+      },
+      "DependsOn": [
+        "RoleDefaultPolicy5FFB7DAB",
+        "Role1ABCC5F0"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoFuncDynamoDB/Resource",
+        "aws:asset:path": "asset.55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837",
+        "aws:asset:property": "Code"
+      }
+    },
+    "demoFuncDynamoDBAllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3C978BF7E": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "demoFuncDynamoDBE89A0542",
+            "Arn"
+          ]
+        },
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        },
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "demoS3A195AEAA",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoFuncDynamoDB/AllowBucketNotificationsFromAwsServerlessStackdemoS369A3E7C3"
+      }
+    },
+    "demoFuncSNSACD50742": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0S3Bucket85676EC4"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0S3VersionKeyBE0D9DED"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0S3VersionKeyBE0D9DED"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "func_SNS::func_SNS.Function::FunctionHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "Role1ABCC5F0",
+            "Arn"
+          ]
+        },
+        "Runtime": "dotnetcore3.1",
+        "FunctionName": "serverless-inventory-app-func-sns",
+        "Timeout": 180
+      },
+      "DependsOn": [
+        "RoleDefaultPolicy5FFB7DAB",
+        "Role1ABCC5F0"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoFuncSNS/Resource",
+        "aws:asset:path": "asset.ef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0",
+        "aws:asset:property": "Code"
+      }
+    },
+    "demoFuncSNSDynamoDBEventSourceAwsServerlessStackdemoDynamoDB5BC3D06681DEAFC5": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "demoDynamoDB7092A819",
+            "StreamArn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "demoFuncSNSACD50742"
+        },
+        "BatchSize": 100,
+        "StartingPosition": "LATEST"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoFuncSNS/DynamoDBEventSource:AwsServerlessStackdemoDynamoDB5BC3D066/Resource"
+      }
+    },
+    "demoFuncGetItems6B9C0274": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eS3Bucket0859800E"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eS3VersionKey9E51566F"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eS3VersionKey9E51566F"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "func_GetItems::func_GetItems.Function::FunctionHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "Role1ABCC5F0",
+            "Arn"
+          ]
+        },
+        "Runtime": "dotnetcore3.1",
+        "FunctionName": "serverless-inventory-app-func-getitems",
+        "Timeout": 180
+      },
+      "DependsOn": [
+        "RoleDefaultPolicy5FFB7DAB",
+        "Role1ABCC5F0"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoFuncGetItems/Resource",
+        "aws:asset:path": "asset.a3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7e",
+        "aws:asset:property": "Code"
+      }
+    },
+    "demoAPIGateway75123205": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "serverless-inventory-app-api-inventory"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Resource"
+      }
+    },
+    "demoAPIGatewayDeploymentEC913EA1273d42dd4d0b4ba1fb3f1b823243c22b": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "demoAPIGateway75123205"
+        },
+        "Description": "Automatically created by the RestApi construct"
+      },
+      "DependsOn": [
+        "demoAPIGatewayapiGET5718845F",
+        "demoAPIGatewayapi8B5D726F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Deployment/Resource"
+      }
+    },
+    "demoAPIGatewayDeploymentStageprod80D6F36D": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "demoAPIGateway75123205"
+        },
+        "DeploymentId": {
+          "Ref": "demoAPIGatewayDeploymentEC913EA1273d42dd4d0b4ba1fb3f1b823243c22b"
+        },
+        "StageName": "prod"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/DeploymentStage.prod/Resource"
+      }
+    },
+    "demoAPIGatewayCloudWatchRoleE9E2034A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/CloudWatchRole/Resource"
+      }
+    },
+    "demoAPIGatewayAccount2585EDA9": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "demoAPIGatewayCloudWatchRoleE9E2034A",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "demoAPIGateway75123205"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Account"
+      }
+    },
+    "demoAPIGatewayapi8B5D726F": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "demoAPIGateway75123205",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "api",
+        "RestApiId": {
+          "Ref": "demoAPIGateway75123205"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Default/api/Resource"
+      }
+    },
+    "demoAPIGatewayapiGETApiPermissionAwsServerlessStackdemoAPIGateway76D0FDE4GETapi758374C5": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "demoFuncGetItems6B9C0274",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "demoAPIGateway75123205"
+              },
+              "/",
+              {
+                "Ref": "demoAPIGatewayDeploymentStageprod80D6F36D"
+              },
+              "/GET/api"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/ApiPermission.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api"
+      }
+    },
+    "demoAPIGatewayapiGETApiPermissionTestAwsServerlessStackdemoAPIGateway76D0FDE4GETapiC30B682B": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "demoFuncGetItems6B9C0274",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "demoAPIGateway75123205"
+              },
+              "/test-invoke-stage/GET/api"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/ApiPermission.Test.AwsServerlessStackdemoAPIGateway76D0FDE4.GET..api"
+      }
+    },
+    "demoAPIGatewayapiGET5718845F": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "demoAPIGatewayapi8B5D726F"
+        },
+        "RestApiId": {
+          "Ref": "demoAPIGateway75123205"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "demoFuncGetItems6B9C0274",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoAPIGateway/Default/api/GET/Resource"
+      }
+    },
+    "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource"
+      }
+    },
+    "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:PutBucketNotification",
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36",
+        "Roles": [
+          {
+            "Ref": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource"
+      }
+    },
+    "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Description": "AWS CloudFormation handler for \"Custom::S3BucketNotifications\" resources (@aws-cdk/aws-s3)",
+        "Code": {
+          "ZipFile": "exports.handler = (event, context) => {\n    // eslint-disable-next-line @typescript-eslint/no-require-imports, import/no-extraneous-dependencies\n    const s3 = new (require('aws-sdk').S3)();\n    // eslint-disable-next-line @typescript-eslint/no-require-imports\n    const https = require('https');\n    // eslint-disable-next-line @typescript-eslint/no-require-imports\n    const url = require('url');\n    log(JSON.stringify(event, undefined, 2));\n    const props = event.ResourceProperties;\n    if (event.RequestType === 'Delete') {\n        props.NotificationConfiguration = {}; // this is how you clean out notifications\n    }\n    const req = {\n        Bucket: props.BucketName,\n        NotificationConfiguration: props.NotificationConfiguration,\n    };\n    return s3.putBucketNotificationConfiguration(req, (err, data) => {\n        log({ err, data });\n        if (err) {\n            return submitResponse('FAILED', err.message + `\\nMore information in CloudWatch Log Stream: ${context.logStreamName}`);\n        }\n        else {\n            return submitResponse('SUCCESS');\n        }\n    });\n    function log(obj) {\n        console.error(event.RequestId, event.StackId, event.LogicalResourceId, obj);\n    }\n    // tslint:disable-next-line:max-line-length\n    // adapted from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-code.html#cfn-lambda-function-code-cfnresponsemodule\n    // to allow sending an error messge as a reason.\n    function submitResponse(responseStatus, reason) {\n        const responseBody = JSON.stringify({\n            Status: responseStatus,\n            Reason: reason || 'See the details in CloudWatch Log Stream: ' + context.logStreamName,\n            PhysicalResourceId: event.PhysicalResourceId || event.LogicalResourceId,\n            StackId: event.StackId,\n            RequestId: event.RequestId,\n            LogicalResourceId: event.LogicalResourceId,\n            NoEcho: false,\n        });\n        log({ responseBody });\n        const parsedUrl = url.parse(event.ResponseURL);\n        const options = {\n            hostname: parsedUrl.hostname,\n            port: 443,\n            path: parsedUrl.path,\n            method: 'PUT',\n            headers: {\n                'content-type': '',\n                'content-length': responseBody.length,\n            },\n        };\n        const request = https.request(options, (r) => {\n            log({ statusCode: r.statusCode, statusMessage: r.statusMessage });\n            context.done();\n        });\n        request.on('error', (error) => {\n            log({ sendError: error });\n            context.done();\n        });\n        request.write(responseBody);\n        request.end();\n    }\n};"
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 300
+      },
+      "DependsOn": [
+        "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36",
+        "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
+      }
+    },
+    "demoSNS5FC17744": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "Out of Stock Topic",
+        "TopicName": "NoStock"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoSNS/Resource"
+      }
+    },
+    "demoSNSserkanbingoloutlookcom196BA3A1": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "demoSNS5FC17744"
+        },
+        "Endpoint": "serkanbingol@outlook.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AwsServerlessStack/demoSNS/serkanbingol@outlook.com/Resource"
+      }
+    }
+  },
+  "Parameters": {
+    "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837S3Bucket72923133": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837\""
+    },
+    "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837S3VersionKeyF51AD988": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837\""
+    },
+    "AssetParameters55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837ArtifactHash952BAF45": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"55246222bf41b7a332aa2c2f98b7dc910cbf4cb40c868e16a694ec246c17b837\""
+    },
+    "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0S3Bucket85676EC4": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"ef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0\""
+    },
+    "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0S3VersionKeyBE0D9DED": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"ef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0\""
+    },
+    "AssetParametersef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0ArtifactHash70DCF09D": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"ef177ab42bb0f28f3daa75871149ddf79df28e9a89883942cb1223cbe416a9b0\""
+    },
+    "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eS3Bucket0859800E": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"a3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7e\""
+    },
+    "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eS3VersionKey9E51566F": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"a3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7e\""
+    },
+    "AssetParametersa3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7eArtifactHashD0DB771E": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"a3acba48a2c92f231156db2f2efbd75ad50a0b79ff1ee8e4f7fafe66c4023f7e\""
+    }
+  },
+  "Outputs": {
+    "demoAPIGatewayEndpoint49055AAA": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "demoAPIGateway75123205"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "demoAPIGatewayDeploymentStageprod80D6F36D"
+            },
+            "/"
+          ]
+        ]
+      }
+    }
+  }
+}

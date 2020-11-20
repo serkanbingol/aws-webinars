@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "dfAOYIyAbs3ZRgV0xTyqatM6+0Ke3XCLwSrSgNezTLrN5fqIgyH7x2vP5XR1BRw5vOHUtAc3RiW1Lj0sRJ7dSQ==",
+  "success": true,
+  "projectFilePath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/func_SNS.csproj",
+  "expectedPackageFiles": [
+    "/home/srknbngl/.nuget/packages/amazon.lambda.core/1.1.0/amazon.lambda.core.1.1.0.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/amazon.lambda.dynamodbevents/1.1.0/amazon.lambda.dynamodbevents.1.1.0.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/amazon.lambda.serialization.systemtextjson/1.0.0/amazon.lambda.serialization.systemtextjson.1.0.0.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/awssdk.core/3.5.0-beta/awssdk.core.3.5.0-beta.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/awssdk.dynamodbv2/3.5.0-beta/awssdk.dynamodbv2.3.5.0-beta.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/awssdk.simplenotificationservice/3.5.0-beta/awssdk.simplenotificationservice.3.5.0-beta.nupkg.sha512"
+  ],
+  "logs": []
+}

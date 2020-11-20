@@ -1,0 +1,12 @@
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/bin/release/netcoreapp3.1/func_GetItems.deps.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/bin/release/netcoreapp3.1/func_GetItems.runtimeconfig.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/bin/release/netcoreapp3.1/func_GetItems.runtimeconfig.dev.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/bin/release/netcoreapp3.1/func_GetItems.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/bin/release/netcoreapp3.1/func_GetItems.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.csprojAssemblyReference.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.csproj.CoreCompileInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.AssemblyInfoInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.AssemblyInfo.cs
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/obj/release/netcoreapp3.1/func_GetItems.genruntimeconfig.cache

@@ -1,0 +1,132 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "func_DynamoDB/1.0.0": {
+        "dependencies": {
+          "AWSSDK.DynamoDBv2": "3.5.0-beta",
+          "AWSSDK.S3": "3.5.0-beta",
+          "Amazon.Lambda.Core": "1.1.0",
+          "Amazon.Lambda.S3Events": "1.1.0",
+          "Amazon.Lambda.Serialization.SystemTextJson": "1.0.0"
+        },
+        "runtime": {
+          "func_DynamoDB.dll": {}
+        }
+      },
+      "Amazon.Lambda.Core/1.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/Amazon.Lambda.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Amazon.Lambda.S3Events/1.1.0": {
+        "dependencies": {
+          "AWSSDK.S3": "3.5.0-beta"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Amazon.Lambda.S3Events.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Amazon.Lambda.Serialization.SystemTextJson/1.0.0": {
+        "dependencies": {
+          "Amazon.Lambda.Core": "1.1.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Amazon.Lambda.Serialization.SystemTextJson.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AWSSDK.Core/3.5.0-beta": {
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.5.0.0"
+          }
+        }
+      },
+      "AWSSDK.DynamoDBv2/3.5.0-beta": {
+        "dependencies": {
+          "AWSSDK.Core": "3.5.0-beta"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.DynamoDBv2.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.5.0.0"
+          }
+        }
+      },
+      "AWSSDK.S3/3.5.0-beta": {
+        "dependencies": {
+          "AWSSDK.Core": "3.5.0-beta"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.S3.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.5.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "func_DynamoDB/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Amazon.Lambda.Core/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ueGId8b4DEHoVWkHDs3iAJH8IUSAUGu5AqkoI/Syl4RuByzik7lz9IjoImiGAlGhtsQV02MHNeTo04IFjS37gQ==",
+      "path": "amazon.lambda.core/1.1.0",
+      "hashPath": "amazon.lambda.core.1.1.0.nupkg.sha512"
+    },
+    "Amazon.Lambda.S3Events/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GIN+MTDPlxoyjn14zRQy9jQCEb15+/ZEJ28g/YSj4+X1Uq5CIs4C13mRdE3iShtAynxNl7IhwrXR7NzJRuDPwQ==",
+      "path": "amazon.lambda.s3events/1.1.0",
+      "hashPath": "amazon.lambda.s3events.1.1.0.nupkg.sha512"
+    },
+    "Amazon.Lambda.Serialization.SystemTextJson/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XY/SexqKBBAMrrcKsPbZiDh9F1hbSlzdNRE5P7vVHwnomDRrSHMT6qN9Zl5l8XVWm/tcC4dZnTlqb2XPtPALBw==",
+      "path": "amazon.lambda.serialization.systemtextjson/1.0.0",
+      "hashPath": "amazon.lambda.serialization.systemtextjson.1.0.0.nupkg.sha512"
+    },
+    "AWSSDK.Core/3.5.0-beta": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZRFwKVPowoB87Fgof6F9Vxr/6/3TvAc7Pc17S74oUCCEbPnMLZtELqEREDiWMqkUYZxwcFrgmpML8LQl792XzA==",
+      "path": "awssdk.core/3.5.0-beta",
+      "hashPath": "awssdk.core.3.5.0-beta.nupkg.sha512"
+    },
+    "AWSSDK.DynamoDBv2/3.5.0-beta": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z2QzsBA8BQl544TNuwkUaYjQCx9TAvlMMRR8w6W2Wmn0+RTs2ktbqnQEO4c1FKjkB8PWHyKWaHjOVljWlvSCKg==",
+      "path": "awssdk.dynamodbv2/3.5.0-beta",
+      "hashPath": "awssdk.dynamodbv2.3.5.0-beta.nupkg.sha512"
+    },
+    "AWSSDK.S3/3.5.0-beta": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-D8YSmwhaRxQ2w38Z1NPtWU3AsLhyTZrQo+CxAKGH8VaSjd6Fbn3ip2uRt50o+gaJxQ+SOdZeebh91VqcHEgLqg==",
+      "path": "awssdk.s3/3.5.0-beta",
+      "hashPath": "awssdk.s3.3.5.0-beta.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FQqU4waFiK4ZxZeFVsp9+D24DZ6RNDhgAtZxFaYuSzY3x7kLR52Ark2Iq7oZfuxxSg8da+Tblrh7kcDyR8xUxw==",
+  "success": true,
+  "projectFilePath": "/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_GetItems/src/func_GetItems/func_GetItems.csproj",
+  "expectedPackageFiles": [
+    "/home/srknbngl/.nuget/packages/amazon.lambda.core/1.1.0/amazon.lambda.core.1.1.0.nupkg.sha512",
+    "/home/srknbngl/.nuget/packages/amazon.lambda.serialization.systemtextjson/1.0.0/amazon.lambda.serialization.systemtextjson.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

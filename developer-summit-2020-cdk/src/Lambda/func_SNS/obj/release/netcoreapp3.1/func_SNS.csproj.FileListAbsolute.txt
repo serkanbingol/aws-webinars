@@ -1,0 +1,12 @@
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/bin/release/netcoreapp3.1/func_SNS.deps.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/bin/release/netcoreapp3.1/func_SNS.runtimeconfig.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/bin/release/netcoreapp3.1/func_SNS.runtimeconfig.dev.json
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/bin/release/netcoreapp3.1/func_SNS.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/bin/release/netcoreapp3.1/func_SNS.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.csprojAssemblyReference.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.csproj.CoreCompileInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.AssemblyInfoInputs.cache
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.AssemblyInfo.cs
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.dll
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.pdb
+/home/srknbngl/001_repos/aws-webinars/aws_serverless/src/Lambda/func_SNS/obj/release/netcoreapp3.1/func_SNS.genruntimeconfig.cache
